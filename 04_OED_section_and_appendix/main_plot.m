@@ -46,10 +46,10 @@ for ii = 1:2
     ylabel('F_{add} (g/addition)');
 
     % Annotate key input events
-    str1 = ['F_{add}(t=' num2str(inputs.exps.t_con{1}(3)/60) ')= ' num2str(inputs.exps.u{1}(1,3)) 'g'];
+    str1 = ['F_{add}(t=' num2str(inputs.exps.t_con{1}(3)/60) ')= ' num2str(res.oed.u{1}(1,3)) 'g'];
     annotation(gcf, 'textarrow', pos_label, [0.8659, 0.8197], 'String', str1);
 
-    str2 = ['F_{add}(t=0)= ' num2str(inputs.exps.u{1}(1,1)) 'g'];
+    str2 = ['F_{add}(t=0)= ' num2str(res.oed.u{1}(1,1)) 'g'];
     annotation(gcf, 'textarrow', [0.1859, 0.1581], [0.6947, 0.6431], 'String', str2);
 
     %% 4. Plot simulation results
