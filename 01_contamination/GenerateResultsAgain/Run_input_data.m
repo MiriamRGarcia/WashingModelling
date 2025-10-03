@@ -9,13 +9,12 @@
 % Model related data
 %==========================================================================
 inputs.model.n_st           = 2;                                           % Number of model states
-inputs.model.n_par          = 5;                                           % Number of model parameters
-inputs.model.n_stimulus     = 5;                                           % Number of inputs (caravacrol concentration)
+inputs.model.n_par          = 3;                                           % Number of model parameters
+inputs.model.n_stimulus     = 2;                                           % Number of inputs (caravacrol concentration)
 inputs.model.st_names       = char('Xw','COD');                             % Names of the states ('YY = Bacterial concentration in log10 scale' and 'SS = cell state')
-inputs.model.par_names      = char('DD','K_X','K_COD','alpha','Km');     % Names of the parameters
-inputs.model.stimulus_names = char('FC','pH','TT','MM','VV');                                  % Names of the stimuli, inputs or controls
-inputs.model.eqns           = char('HOCl=FC/(1.0+(pow(10.0,-((3000.0/(TT+273.15)))+0.0253*(TT+273.15)-10.0686)/pow(10.0,-pH)))',...
-    'dXw =-DD*Xw +(MM/VV)*K_X',...
+inputs.model.par_names      = char('DD','K_X','K_COD');     % Names of the parameters
+inputs.model.stimulus_names = char('MM','VV');                                  % Names of the stimuli, inputs or controls
+inputs.model.eqns           = char('dXw =-DD*Xw +(MM/VV)*K_X',...
     'dCOD=-DD*COD+(MM/VV)*K_COD');
 
 
@@ -46,20 +45,17 @@ cd(aqui)
 
  
 myname=[inputs.pathd.results_folder,'_',inputs.pathd.runident]; 
-flag_reopt=0;
-try
-    prev_res=load(inputs.pathd.results_folder);
+
+
+    prev_res=load(['../',inputs.pathd.results_folder]);
     opt=prev_res.res.fit.thetabest'
     myname=[inputs.pathd.results_folder,'_ropt_',num2str(bla)];
     flag_reopt=1;
     clear prev_res
-catch
-end
+
 inputs.model.par     =   [0
     0
-    0.567517
-    2.38477e-05
-    31626]'; %%% 0.060
+    0.567517]'; %%% 0.060
 inputs.exps.n_exp             = size(dat.ts,2);                                       % Number of experiments
 ng = 1;
 
@@ -84,9 +80,7 @@ for iexp = 1:inputs.exps.n_exp                                             % Loo
     inputs.exps.n_linear{iexp}=size(dat.ts{iexp},2);
     inputs.exps.t_con{iexp}=[dat.ts{iexp}];
     FM=dat.tau{iexp}*dat.Kgp{iexp}(end)/dat.ts{iexp}(end);    
-    inputs.exps.u{iexp}        = [dat.Dis{iexp};
-        dat.pH{iexp};
-        dat.T{iexp} 
+    inputs.exps.u{iexp}        = [
         FM*ones(size(dat.pH{iexp}))
         dat.V{iexp}];                                                  % Values of the inputs
     
@@ -111,8 +105,6 @@ for iexp = 1:inputs.exps.n_exp                                             % Loo
     %
 
     inputs.PEsol.id_local_theta{iexp}=char('K_COD','K_X');                % [] 'all'|User selected| 'none' (default)
-    inputs.PEsol.local_theta_max{iexp}=[  0.2   1e5     1e13  ];              % Maximum allowed values for the paramters
-    inputs.PEsol.local_theta_min{iexp}=[     0      0      0    ];
     inputs.PEsol.local_theta_max{iexp}=[ 1e5    1e12  ];
     inputs.PEsol.local_theta_min{iexp}=[0,0];
     if flag_reopt==1;

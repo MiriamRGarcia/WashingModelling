@@ -7,6 +7,9 @@
 clear all
 close all
 
+run /home/miriam/Dropbox/Apps/AMIGO2_R2025/AMIGO_Startup.m
+addpath('../../AMIGO_changes')
+
 for bla=1:3 %prev
     close all
     clear inputs x1 x2
@@ -64,4 +67,3 @@ for bla=1:3 %prev
     % %%%========================================================================
     run PostProcess_final_obj1
 end
-play_alert
