@@ -4,7 +4,7 @@
 %                         in 4.0 Industry: Modelling and calibration 
 %                         through optimal experimental design
 %
-% Contamination cases (no disinfectant)
+% Inactivation cases (disinfectant)
 %=========================================================================%
 clear all
 close all
