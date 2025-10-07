@@ -1,8 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Main file to run parameter estimation with AMIGO for the model in:
-% 2023 - Pedreira et al - Modelling the antimicrobial effect of food
-%                         preservatives in bacteria: application to
-%                         E. coli and B. cereus inhibition with carvacrol
+% 2025 - Moreno et al   - Virtual Representation of Fresh Produce Washing 
+%                         in 4.0 Industry: Modelling and calibration 
+%                         through optimal experimental design
+%
+% Contamination cases (no disinfectant)
 %=========================================================================%
 clear all
 close all
@@ -42,7 +44,7 @@ clc
     % Uncomment for global optimizations:
     % -----------------------------------------------------------------
     inputs.nlpsol.nlpsolver       = 'eSS';%'de';                               % Perform estimation using Enhaced Scatter Search.
-    inputs.nlpsol.eSS.maxeval     = 1e100;                                       % Maximum number of evaluations of the objective function,
+    inputs.nlpsol.eSS.maxeval     = 1e100;                                     % Maximum number of evaluations of the objective function,
     inputs.nlpsol.eSS.maxtime     =1*60;  %prev                                % Maximum time for optimisation,
     
     inputs.nlpsol.eSS.local.solver='solnp';
@@ -53,7 +55,7 @@ clc
     %%% Fit mechanistic model to CFUS/mL data
     %%%========================================================================
     
-    mod = 'WASHTOP';                                                  % Name of the file containing the AMIGO model,
+    mod = 'WASHTOP';   % Name of the file containing the AMIGO model,
     Run_input_data
     close all
     
@@ -87,7 +89,7 @@ clc
     
     % Run Parameter estimation (PE) and PostAnalysis:
     %-----------------------------------------------------------------
-    AMIGO_Prep(inputs)                                                     % Preparation of AMIGO toolbox
+    AMIGO_Prep(inputs)          % Preparation of AMIGO toolbox
     res = AMIGO_PE(inputs);     % Matlab structure with the calibration results
     
     
@@ -128,7 +130,7 @@ clc
     inputs.PEsol.global_theta_guess = opt(1:ng);
     inputs.nlpsol.eSS.log_var=[1:size(opt,2)];
     
-    AMIGO_Prep(inputs)                                                     % Preparation of AMIGO toolbox
+    AMIGO_Prep(inputs)          % Preparation of AMIGO toolbox
     res = AMIGO_PE(inputs);     % Matlab structure with the calibration results
     
     %% ====================================================================
@@ -221,7 +223,6 @@ clc
     end
     
     drawnow
-    %hgsave([inputs.pathd.results_folder,'_TotalCounts_noscaling'])
     
     % with scaling (Total Counts)
     for iexp = 1:inputs.exps.n_exp
@@ -306,6 +307,3 @@ clc
     catch
         hgsave([outprefix,'_COD'])
     end
-        
-        
-   %inputs.pathd.results_folder
