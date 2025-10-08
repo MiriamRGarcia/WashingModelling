@@ -8,7 +8,6 @@
 %=========================================================================%
 clear all
 close all
-clc
 
     %% ====================================================================
     %%% Preprocessing 
@@ -86,14 +85,13 @@ clc
     inputs.exps.n_exp = size(dat.ts,2);
 
     %======================================================================
-    % Catch previous optimization results (if flag_reopt = 0)
+    % Catch previous optimization results (if flag_reopt )
     %======================================================================
-    flag_reopt=0;
+    flag_reopt=1;
     
-    if trial==1
+    if flag_reopt==1
         prev_res=load('Pre_optims/Best_results_sec312_PE_inactivation.mat');
         opt=prev_res.res.fit.thetabest';
-        flag_reopt=1;
         iii=(size(opt,2)-2)/54;
         alpha=opt(1);
         alphaL=opt(2);
@@ -106,8 +104,8 @@ clc
             opt=[opt KX(ibla) K_COD(ibla) K_XL(ibla) 1e3];
         end
     else
-        prev_res=load('temp.mat');
-        opt=prev_res.res.fit.thetabest';
+        prev_res=load('Pre_optims/Best_results_sec312_PE_inactivation.mat');
+        opt=ones(size(prev_res.res.fit.thetabest'));
         flag_reopt=1;
     end
 
@@ -134,7 +132,7 @@ clc
     % Number of global parameters
     ng = size(inputs.PEsol.id_global_theta,1);
     inputs.PEsol.global_theta_max=[15 15  ];
-    inputs.PEsol.global_theta_min=[0 0  ];
+    inputs.PEsol.global_theta_min=[0 0 ];
     inputs.PEsol.global_theta_guess=opt(1:ng); 
     
     % Parameters initialization
@@ -234,7 +232,6 @@ clc
     %% ====================================================================
     % Run postprocess (figures and tables)
     % =====================================================================
-        save temp
         ff='Results_finally_selected_for_D5_afterRev1';
         def=0;
 
@@ -251,7 +248,8 @@ clc
         end
         max_Nw=max(temp(:,1));
         max_COD=max(temp(:,2));%max(max(cell2mat(dat.COD)));
-        
+        clear temp
+
         %% ====================================================================
         % run optim to get confidence intervals alwasy same conditions
         %%=====================================================================
@@ -322,9 +320,9 @@ clc
         rows = ceil(inputs.exps.n_exp/cols);
         
         %% --------------------------- FIGURE A: Xw + XwLis ------------------------
-        fig_xw = figure;
-        set(fig_xw,'Name','Xw & XwLis','NumberTitle','off');
-        set(fig_xw,'OuterPosition',[-1 35 2564 1406]);
+        fig_counts = figure;
+        set(fig_counts,'Name','Xw & XwLis','NumberTitle','off');
+        set(fig_counts,'OuterPosition',[-1 35 2564 1406]);
         
         ax_first_A = [];    % will store the first axes handle
         hA = [];            % will store the four line handles for the legend
@@ -371,10 +369,10 @@ clc
         end
         
         % ---legend ---
-        legAxA = axes(fig_xw,'Position',[0 0 1 1],'Visible','off');  % dummy axes
+        legAxA = axes(fig_counts,'Position',[0 0 1 1],'Visible','off');  % dummy axes
         
         % Bring all real subplots above the dummy legend axes
-        axsA = findall(fig_xw,'Type','axes');
+        axsA = findall(fig_counts,'Type','axes');
         axsA(axsA==legAxA) = [];               % drop the dummy axes
         
         %for k = 1:numel(axsA), uistack(axsA(k),'top'); end
@@ -439,11 +437,11 @@ clc
             hgsave([outprefix,'_COD_'])
         end
 
-        clear newpar pg pl
+        clear newpar pg pl fig_cod fig_counts 
         pg=res.fit.thetabest(1);
         pl{1}=log10(res.fit.thetabest(ng+1:2:end));
         pl{2}=log10(res.fit.thetabest(ng+2:2:end));
-        save(outprefix)                                  % saves run results as .../results_inactivation/<runname>.mat
-        save(fullfile(results_dir,'temp.mat'))           % temp also into the subfolder
+        save(outprefix) % Save results
+
 
     

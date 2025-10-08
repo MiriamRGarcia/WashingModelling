@@ -1,3 +1,11 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main file to run parameter estimation with AMIGO for the model in:
+% 2025 - Moreno et al   - Virtual Representation of Fresh Produce Washing 
+%                         in 4.0 Industry: Modelling and calibration 
+%                         through optimal experimental design
+%
+% Beta and Gamma parameters
+%=========================================================================%
 clear all
 close all
 
@@ -99,7 +107,7 @@ for iexp=1:inputs.exps.n_exp
 end
 
 
-%% Waht to optimise
+%% What to optimise
 %========================================================================================
 
 inputs.PEsol.id_global_theta=char('DD','pbeta','pgamm','pINJ','pKcod');
@@ -107,13 +115,6 @@ inputs.PEsol.global_theta_max=[1 1 10 100000 100000];%30*ones(size(inputs.model.
 inputs.PEsol.global_theta_min=[0 0 0 0 0 ];%0*ones(size(inputs.model.par));       % Minimum allowed values for the parameters
 inputs.PEsol.global_theta_guess=[Fw beta gamm INJ Kcod ];
 inputs.nlpsol.eSS.log_var = [1:5];
-
-% inputs.PEsol.id_global_theta=char('pINJ');
-% inputs.PEsol.global_theta_max=[10000000 ];%30*ones(size(inputs.model.par));       % Maximum allowed values for the paramters
-% inputs.PEsol.global_theta_min=[0   ];%0*ones(size(inputs.model.par));       % Minimum allowed values for the parameters
-% inputs.PEsol.global_theta_guess=[INJ ];
-% inputs.nlpsol.eSS.log_var = [1];
-
 
 inputs.nlpsol.nlpsolver='eSS';%'de';                                       % 'local_fmincon'|'local_n2fb'|'local_dn2fb'|'local_dhc'|
 %inputs.nlpsol.nlpsolver='local_fminsearch';                               % uncomment this if only local optimization is needed (faster but could be trapped in a local minimumn)
@@ -123,11 +124,26 @@ inputs.nlpsol.eSS.maxtime = 20;                                            % Tim
 % Plotting saving...
 inputs.plotd.plotlevel='none';                                             % [] Display of figures: 'full'|'medium'(default)|'min' |'noplot'
 
-
 inputs.PEsol.PEcost_type='llk';                                            % 'lsq' (weighted least squares default) | 'llk' (log likelihood) | 'user_PEcost'
 inputs.exps.error_data{iexp}=[0.1*ones(size(expData.FC')) 10*ones(size(expData.COD'))];
  % inputs.ivpsol.rtol=1.0D-6;                            % [] IVP solver integration tolerances
  % inputs.ivpsol.atol=1.0D-6; 
+
+
+
+%% Load Pre_optims
+%========================================================================================
+    % Assign flag_reopt a value different to 1 if 
+    % loading Pre_optims is not desired
+    flag_reopt=1;   
+    prev_res=load('Pre_optims/Best_results_sec313_PE_Beta_and_Gamma.mat');
+    opt=prev_res.results.fit.thetabest';
+
+    if flag_reopt==1
+    inputs.PEsol.global_theta_guess=opt;
+    end
+
+    clear prev_res opt
 
 %% Compute Results
 %========================================================================================
@@ -145,7 +161,6 @@ res = AMIGO_PE(inputs)
     %% ================================================================
     % Common parameters
     % ================================================================
-    %nl  = size(inputs.PEsol.id_local_theta{1},1); 
     opt = res.fit.thetabest'; 
     
     temp = zeros(inputs.exps.n_exp,2);
@@ -192,8 +207,7 @@ res = AMIGO_PE(inputs)
     end
     
     drawnow
-    %hgsave([inputs.pathd.results_folder,'_TotalCounts_noscaling'])
-    
+
     % with scaling (Total Counts)
     for iexp = 1:inputs.exps.n_exp
         subplot(rows,cols,iexp);
@@ -214,8 +228,6 @@ res = AMIGO_PE(inputs)
 
     if ~exist('./Results/sec313_PE_Beta_and_Gamma'); mkdir('./Results/sec313_PE_Beta_and_Gamma'); end
     hgsave('./Results/sec313_PE_Beta_and_Gamma/FC_abnavi');
-
-
     
     %% ------------------------------- FIGURE B: COD ---------------------------
     fig_cod = figure;
@@ -243,11 +255,10 @@ res = AMIGO_PE(inputs)
                'FontSize',16,'FontWeight','bold','interpreter','latex');
         xlabel('Time (min)','FontSize',16,'FontWeight','bold','interpreter','latex');
         % Title
-        %title('Abnavi et al. 2021 dynamic experimental dataset - COD simulation', 'Interpreter','latex');
+        % title('Abnavi et al. 2021 dynamic experimental dataset - COD simulation', 'Interpreter','latex');
     end
     
     drawnow
-    %hgsave([inputs.pathd.results_folder,'_COD_noscaling'])
     
     % with scaling (COD)
     for iexp = 1:inputs.exps.n_exp
@@ -269,3 +280,5 @@ res = AMIGO_PE(inputs)
     if ~exist('./Results/sec313_PE_Beta_and_Gamma'); mkdir('./Results/sec313_PE_Beta_and_Gamma'); end
     hgsave('./Results/sec313_PE_Beta_and_Gamma/COD_abnavi');
 
+    clear fig_cod fig_counts
+    save('./Results/sec313_PE_Beta_and_Gamma/results_sec313_PE_Beta_and_Gamma')  % saves run results as .../results_inactivation/<runname>.mat

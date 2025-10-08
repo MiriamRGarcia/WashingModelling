@@ -25,7 +25,7 @@ inputs.model.eqns           = char('dXw =-DD*Xw +(MM/VV)*K_X',...
     % Case without disinfectant:
     dat = build_dat_from_ods(ods, 'Exp_data_WithoutDisinfectant');
 
-myname=[inputs.pathd.results_folder,'_',inputs.pathd.runident]; 
+    myname=[inputs.pathd.results_folder,'_',inputs.pathd.runident]; 
 
 
     prev_res=load('Pre_optims/Best_results_sec311_PE_contamination.mat');

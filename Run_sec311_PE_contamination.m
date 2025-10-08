@@ -45,7 +45,7 @@ clc
     % -----------------------------------------------------------------
     inputs.nlpsol.nlpsolver       = 'eSS';%'de';                               % Perform estimation using Enhaced Scatter Search.
     inputs.nlpsol.eSS.maxeval     = 1e100;                                     % Maximum number of evaluations of the objective function,
-    inputs.nlpsol.eSS.maxtime     =1*60;  %prev                                % Maximum time for optimisation,
+    inputs.nlpsol.eSS.maxtime     = 1*60;  %prev                               % Maximum time for optimisation,
     
     inputs.nlpsol.eSS.local.solver='solnp';
     inputs.nlpsol.eSS.local.n2=10;
@@ -54,8 +54,6 @@ clc
     %% ========================================================================
     %%% Fit mechanistic model to CFUS/mL data
     %%%========================================================================
-    
-
     Run_input_data
     close all
     
@@ -92,11 +90,9 @@ clc
     AMIGO_Prep(inputs)          % Preparation of AMIGO toolbox
     res = AMIGO_PE(inputs);     % Matlab structure with the calibration results
     
-    
     %% ====================================================================
     %%% Run postprocess (figures and tables)
     %%%====================================================================
-    save temp
     def=1;
     
     %% ====================================================================
@@ -113,13 +109,13 @@ clc
     end
     max_Nw=max(temp(:,1));
     max_COD=max(temp(:,2));%max(max(cell2mat(dat.COD)));
-    %%
+    clear temp
     
     %% ====================================================================
     % run optim to get confidence intervals alwasy same conditions
     %%=====================================================================
     inputs.nlpsol.nlpsolver       = 'local_solnp';
-    inputs.ivpsol.senssolver      ='fdsens5'%'cvodes'
+    inputs.ivpsol.senssolver      = 'fdsens5'%'cvodes'
     
     % optimumn
     count_t=ng;
@@ -307,3 +303,6 @@ clc
     catch
         hgsave([outprefix,'_COD'])
     end
+
+    clear fig_cod fig_counts
+    save(outprefix) % Save results

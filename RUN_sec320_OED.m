@@ -1,8 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TITLE: OED Washing Process
-% AUTHORS: Moreno-Razoa, Martínez-López, Vilas, Tudela, Gil, García
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% Main file to run OED of Fresh Produce Washing Process
+% 2025 - Moreno et al   - Virtual Representation of Fresh Produce Washing 
+%                         in 4.0 Industry: Modelling and calibration 
+%                         through optimal experimental design
+%
+% Optimal Experimental Design
+%=========================================================================%
 clear all
 close all
 
