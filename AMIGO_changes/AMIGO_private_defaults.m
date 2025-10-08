@@ -76,7 +76,7 @@ inputs_def.model.time_symbol='t';   % Time symbol by default
 % EXPERIMENTAL SCHEME RELATED DATA
 %
 
-inputs_def.exps.n_exp=60;  %%%MRG %180                  % number of maximum default experiments
+inputs_def.exps.n_exp=60;   % CHANGE to 60 to allow more than 20 experiments
 inputs_def.exps.NLObs = false;          % Indicates if the observables are nonlinear or depends on optimization parameters: sensitivities of the observables are computed from the state-sensitivities.
 
 for iexp=inputs_def.exps.n_exp:-1:1

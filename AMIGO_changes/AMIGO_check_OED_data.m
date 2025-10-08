@@ -250,7 +250,7 @@ function [inputs,results]= AMIGO_check_OED_data(inputs,results)
                     error('--> There is no such experimental noise type: inputs.exps.noise_type = %s\n',inputs.exps.noise_type );
                 end
              
-              %     inputs.exps.error_data{iexp}=[];   %MRG
+              %     inputs.exps.error_data{iexp}=[];   % CHANGE comment to allow using error_data for OED
                 
                 
         end %switch inputs.exps.exp_type{iexp}

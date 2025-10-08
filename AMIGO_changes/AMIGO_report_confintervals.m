@@ -110,8 +110,8 @@ if inputs.PEsol.ntotal_local_theta>0
     for iexp=1:inputs.exps.n_exp
              for i=1:inputs.PEsol.n_local_theta{iexp}
             rho(i)=cte*sqrt(results.fit.l_var_cov_mat{iexp}(i,i));
-            results.fit.rel_conf_interval(1,counter_g+i)=100*1.96*rho(i)/privstruct.theta(1,counter_g+i); %%MRG added lines to recove conf intervals local parameters
-            results.fit.conf_interval(1,counter_g+i)=1.96*rho(i); %%MRG added lines to recove conf intervals local parameters
+            results.fit.rel_conf_interval(1,counter_g+i)=100*1.96*rho(i)/privstruct.theta(1,counter_g+i); %%CHANGE added lines to recove conf intervals local parameters
+            results.fit.conf_interval(1,counter_g+i)=1.96*rho(i); %%CHANGE added lines to recove conf intervals local parameters
             if numel(inputs.model.par_names)>1
                 
                 if results.nlpsol.act_bound(1,counter_g+i)==1
