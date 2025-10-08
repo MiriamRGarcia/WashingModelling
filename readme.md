@@ -60,7 +60,7 @@ The results and plots obtained from each study can be found in the *Results* fol
 
 - WARNING: In case the user decide to use a different version of AMIGO2, the call to the toolbox in any Run_sec[..] code must be modified. 
 
-  ​	Example: To run the 2025 version, the folder must be placed following the repository scheme, and 	the proper call codeline is: AMIGO2_2025 run AMIGO2_R2025/AMIGO_Startup.m
+  ​	Example: To run the 2025 version, the folder must be placed following the repository scheme, and the proper call codeline is: AMIGO2_2025 run AMIGO2_R2025/AMIGO_Startup.m
 
 ---
 
