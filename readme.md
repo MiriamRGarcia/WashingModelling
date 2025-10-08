@@ -28,31 +28,21 @@ The results and plots obtained from each study can be found in the *Results* fol
 
 ### About the Repository 
 
-├── <span style="color:blue">[Not in Repository] </span> Folder: AMIGO2_[version]           <span style="color:grey">Place Here the AMIGO2 toolbox folder</span>
-
-├── Folder: AMIGO_changes						<span style="color:grey"> </span> <span style="color:grey">Changes of AMIGO2 toolbox </span>
-
-├── Folder: Exp_data     						<span style="color:grey"> </span>	 <span style="color:grey">Experimental data and preprocessing scripts</span>	
-
-├── Folder: OED_codes							   <span style="color:grey">Scripts required to perform OED study </span>	
-
-├── Folder: Pre_optims							   <span style="color:grey">Previously computed optims</span>	
-
-├── Folder: Results							          <span style="color:grey">Saved results location</span>	
-
-├── Script:  RUN_ALL.m						          <span style="color:grey">Script to perform all parameter estimations</span>	
-
-├── Script:  Run_sec311_PE_contamination.m  		 <span style="color:grey">Script to perform PE for: Water Contamination... </span>
-
-├── Script:  Run_sec312_PE_inactivation.m			<span style="color:grey">Script to perform PE for: Inactivation rates ... </span>
-
-├── Script:  Run_sec313_PE_Beta_and_Gamma.m	    <span style="color:grey">Script to perform PE for: Free Chlorine dynamics ...</span>
-
-├── Script:  Run_sec320_OED.m                                           <span style="color:grey">Script to perform Optimal experimental design ...</span>
-
-├── File: LICENSE  
-
-└── File: readme.md     					                  <span style="color:grey">This file</span>
+| Item | Description |
+|------|--------------|
+| <span style="color:blue">[Not in Repository]</span> Folder: **AMIGO2_[version]** | <span style="color:grey">Place here the AMIGO2 toolbox folder</span> |
+| Folder: **AMIGO_changes** | <span style="color:grey">Changes of AMIGO2 toolbox</span> |
+| Folder: **Exp_data** | <span style="color:grey">Experimental data and preprocessing scripts</span> |
+| Folder: **OED_codes** | <span style="color:grey">Scripts required to perform OED study</span> |
+| Folder: **Pre_optims** | <span style="color:grey">Previously computed optimizations</span> |
+| Folder: **Results** | <span style="color:grey">Saved results location</span> |
+| Script: **RUN_ALL.m** | <span style="color:grey">Script to perform all parameter estimations</span> |
+| Script: **Run_sec311_PE_contamination.m** | <span style="color:grey">Script to perform PE for: Water Contamination</span> |
+| Script: **Run_sec312_PE_inactivation.m** | <span style="color:grey">Script to perform PE for: Inactivation rates</span> |
+| Script: **Run_sec313_PE_Beta_and_Gamma.m** | <span style="color:grey">Script to perform PE for: Free Chlorine dynamics</span> |
+| Script: **Run_sec320_OED.m** | <span style="color:grey">Script to perform Optimal Experimental Design</span> |
+| File: **LICENSE** | |
+| File: **readme.md** | <span style="color:grey">This file</span> |
 
 ### Notes
 
