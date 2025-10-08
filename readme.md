@@ -12,7 +12,7 @@ The script presented here are built in the Matlab environment. Additionally, the
 
 ### User guide
 
-Each script starting with the prefix *Run_sec*[*tag*] is related to a study section of the work article submitted with this code whereas *PE* stands for *Parameter Estimation* . The *tag* correspondence is stated as follows :
+Each script starting with the prefix *Run_sec*[*tag*] is related to a study section of the work article submitted with this code, whereas *PE* stands for *Parameter Estimation* and the rest of the name describes the study purpose. The *tag* correspondence is stated as follows :
 
 ​	[ sec311 ] Water contamination and dilution rates in the industry,
 
